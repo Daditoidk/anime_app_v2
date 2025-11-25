@@ -59,6 +59,7 @@ dev_dependencies:
   mocktail: ^1.0.4
   freezed:
   json_serializable:
+  build_runner:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
