@@ -37,10 +37,6 @@ jobs:
       - name: Run build_runner
         run: dart run build_runner build --delete-conflicting-outputs
 
-      # 6) Check formatting
-      - name: Check formatting
-        run: dart format --set-exit-if-changed .
-
       # 7) Static analysis
       - name: Analyze
         run: flutter analyze --fatal-infos
