@@ -1,0 +1,47 @@
+name: Flutter CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - feature/**
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  flutter_ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1) Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2) Install Flutter
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+
+      # 3) Flutter version (just for logs)
+      - name: Flutter doctor
+        run: flutter doctor -v
+
+      # 4) Install dependencies
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 5) Static analysis
+      - name: Analyze
+        run: flutter analyze
+
+      # 6) Run unit/widget tests
+      - name: Run tests
+        run: flutter test --coverage
+
+      # 7) Run integration tests (optional)
+      # - name: Run integration tests
+      #   if: false
+      #   run: flutter test integration_test
