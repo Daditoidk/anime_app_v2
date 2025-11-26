@@ -4,6 +4,16 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'anime_dto.freezed.dart';
 part 'anime_dto.g.dart';
 
+
+@freezed
+abstract class AnimeResponseDto with _$AnimeResponseDto {
+  const factory AnimeResponseDto({required List<AnimeDto> data}) =
+      _AnimeResponseDto;
+
+  factory AnimeResponseDto.fromJson(Map<String, dynamic> json) =>
+      _$AnimeResponseDtoFromJson(json);
+}
+
 @freezed
 abstract class AnimeDto with _$AnimeDto {
   const factory AnimeDto({
