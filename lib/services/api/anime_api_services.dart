@@ -1,13 +1,18 @@
 import 'package:anime_discovery_app_v2/core/constants/api_constants.dart';
+import 'package:anime_discovery_app_v2/core/network/dio_client.dart';
 import 'package:anime_discovery_app_v2/models/dtos/anime_dto.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'anime_api_services.g.dart';
 
 class AnimeApiServices {
   final Dio _dio;
 
   AnimeApiServices(this._dio);
 
-  Future<AnimeDto> getPopularAnime({
+  Future<AnimeResponseDto> getPopularAnime({
     int offset = 0,
     int limit = ApiConstants.pageSize,
     CancelToken? cancelToken,
@@ -22,8 +27,12 @@ class AnimeApiServices {
       cancelToken: cancelToken,
     );
 
-    final json = response.data['data'];
 
-    return AnimeDto.fromJson(json);
+    return AnimeResponseDto.fromJson(response.data);
   }
+}
+
+@riverpod
+AnimeApiServices animeApiServices(Ref ref) {
+  return AnimeApiServices(ref.watch(dioProvider));
 }
