@@ -4,4 +4,6 @@ class ApiConstants {
   static const int pageSize = 20;
 
   static const String getAnimeUrl = '/anime';
+
+  static const String requestCancelledMessage = 'Request cancelled';
 }

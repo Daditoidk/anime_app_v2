@@ -1,3 +1,4 @@
+import 'package:anime_discovery_app_v2/core/constants/api_constants.dart';
 import 'package:anime_discovery_app_v2/core/errors/failure.dart';
 import 'package:anime_discovery_app_v2/models/dtos/anime_dto.dart';
 import 'package:anime_discovery_app_v2/models/entities/anime.dart';
@@ -69,6 +70,11 @@ class AnimeRepositoryImpl implements AnimeRepository {
 
       return Right(animes);
     } on DioException catch (e) {
+      if (e.type == DioExceptionType.cancel) {
+        return const Left(
+          Failure.unexpected(message: ApiConstants.requestCancelledMessage),
+        );
+      }
       return Left(_mapDioError(e));
     } catch (e) {
       return Left(Failure.unexpected(message: e.toString()));
