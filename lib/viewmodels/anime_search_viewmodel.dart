@@ -22,12 +22,8 @@ class AnimeSearchViewmodel extends _$AnimeSearchViewmodel {
     return const AnimeSearchState();
   }
 
-  void activateDeactivateSearch() {
-    if (state.isActive) {
-      deactivateSearch();
-    } else {
-      state = state.copyWith(isActive: true);
-    }
+  void activateSearch() {
+    state = state.copyWith(isActive: true);
   }
 
   void deactivateSearch() {
@@ -39,27 +35,32 @@ class AnimeSearchViewmodel extends _$AnimeSearchViewmodel {
 
   void onQueryChanged(String query) {
     final trimmedQuery = query.trim();
-    if (trimmedQuery.isEmpty) return;
-    if (previousQuery.isEmpty) previousQuery = trimmedQuery;
+    if (trimmedQuery.isEmpty) {
+      // state = state.copyWith(results: []);
+      return;
+    }
+
     if (trimmedQuery == previousQuery) return;
+    previousQuery = trimmedQuery;
 
     _searchDebounce?.cancel();
 
     state = state.copyWith(query: trimmedQuery);
 
     _searchDebounce = Timer(const Duration(milliseconds: 350), () async {
-      await performSearch(trimmedQuery);
+      await _performSearch(trimmedQuery);
     });
   }
 
   void clearSearch() {
+    if (state.query.isEmpty && previousQuery.isEmpty) return;
     _cancelToken?.cancel('Search cleared by user');
     _searchDebounce?.cancel();
     previousQuery = '';
     state = const AnimeSearchState(isActive: true);
   }
 
-  Future<void> performSearch(String query) async {
+  Future<void> _performSearch(String query) async {
     _cancelToken?.cancel('Cancelled due to new search query');
     _cancelToken = CancelToken();
 
@@ -72,6 +73,8 @@ class AnimeSearchViewmodel extends _$AnimeSearchViewmodel {
     );
     // if (!ref.mounted) return;
 
+    if (state.query != query) return;
+
     response.fold(
       (failure) => state = state.copyWith(errorMessage: failure.message),
       (result) {
@@ -79,5 +82,11 @@ class AnimeSearchViewmodel extends _$AnimeSearchViewmodel {
       },
     );
     state = state.copyWith(isSearching: false);
+  }
+
+  void retry() {
+    final query = state.query;
+    state = AnimeSearchState(isSearching: true, isActive: true, query: query);
+    _performSearch(state.query);
   }
 }

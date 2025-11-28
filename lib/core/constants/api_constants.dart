@@ -7,3 +7,7 @@ class ApiConstants {
 
   static const String requestCancelledMessage = 'Request cancelled';
 }
+
+class KeyConstants {
+  static const String animeSearchTextField = 'animeSearchTextField';
+}

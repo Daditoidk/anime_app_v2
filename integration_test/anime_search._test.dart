@@ -1,3 +1,4 @@
+import 'package:anime_discovery_app_v2/core/constants/api_constants.dart';
 import 'package:anime_discovery_app_v2/main.dart' as app;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -22,7 +23,7 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.enterText(
-        find.byKey(const Key('search-text-input')),
+        find.byKey(const Key(KeyConstants.animeSearchTextField)),
         'Boku no',
       );
 
