@@ -14,14 +14,13 @@ class AnimeApiServices {
 
   Future<AnimeResponseDto> getPopularAnime({
     int offset = 0,
-    int limit = ApiConstants.pageSize,
     CancelToken? cancelToken,
   }) async {
     final response = await _dio.get(
       ApiConstants.getAnimeUrl,
       queryParameters: {
         'sort': '-user_count',
-        'page[limit]': limit,
+        'page[limit]': ApiConstants.pageSize,
         'page[offset]': offset,
       },
       cancelToken: cancelToken,
