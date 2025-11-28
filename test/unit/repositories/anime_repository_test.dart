@@ -154,74 +154,83 @@ void main() {
         expect(animes.first.title, 'Test Anime');
       });
     });
-    test('should return a NetworkFailure on connection error during search',
-        () async {
-      when(
-        () => mockAnimeApiService.seachAnime(
-          query: any(named: 'query'),
-          offset: any(named: 'offset'),
-          cancelToken: any(named: 'cancelToken'),
-        ),
-      ).thenThrow(
-        DioException(
-          type: DioExceptionType.connectionError,
-          requestOptions: RequestOptions(path: ''),
-        ),
-      );
+    test(
+      'should return a NetworkFailure on connection error during search',
+      () async {
+        when(
+          () => mockAnimeApiService.seachAnime(
+            query: any(named: 'query'),
+            offset: any(named: 'offset'),
+            cancelToken: any(named: 'cancelToken'),
+          ),
+        ).thenThrow(
+          DioException(
+            type: DioExceptionType.connectionError,
+            requestOptions: RequestOptions(path: ''),
+          ),
+        );
 
-      final result = await repository.searchAnime(query: 'Naruto');
+        final result = await repository.searchAnime(query: 'Naruto');
 
-      expect(result.isLeft(), true);
-      result.fold(
-        (failure) => expect(failure, isA<NetworkFailure>()),
-        (r) => fail('Should not be right'),
-      );
-    });
-    test('should return a ServerFailure on server error durign search',
-        () async {
-      when(
-        () => mockAnimeApiService.seachAnime(
-          query: any(named: 'query'),
-          offset: any(named: 'offset'),
-          cancelToken: any(named: 'cancelToken'),
-        ),
-      ).thenThrow(
-        DioException(
-          type: DioExceptionType.badResponse,
-          response: Response(statusCode: 500, requestOptions: RequestOptions()),
-          requestOptions: RequestOptions(),
-        ),
-      );
+        expect(result.isLeft(), true);
+        result.fold(
+          (failure) => expect(failure, isA<NetworkFailure>()),
+          (r) => fail('Should not be right'),
+        );
+      },
+    );
+    test(
+      'should return a ServerFailure on server error durign search',
+      () async {
+        when(
+          () => mockAnimeApiService.seachAnime(
+            query: any(named: 'query'),
+            offset: any(named: 'offset'),
+            cancelToken: any(named: 'cancelToken'),
+          ),
+        ).thenThrow(
+          DioException(
+            type: DioExceptionType.badResponse,
+            response: Response(
+              statusCode: 500,
+              requestOptions: RequestOptions(),
+            ),
+            requestOptions: RequestOptions(),
+          ),
+        );
 
-      final result = await repository.searchAnime(query: 'Naruto');
+        final result = await repository.searchAnime(query: 'Naruto');
 
-      expect(result.isLeft(), true);
-      result.fold(
-        (failure) => expect(failure, isA<ServerFailure>()),
-        (r) => fail('Should not be right'),
-      );
-    });
-    test('should return a empty list when DioException type cancel get thrown',
-        () async {
-      when(
-        () => mockAnimeApiService.seachAnime(
-          query: any(named: 'query'),
-          offset: any(named: 'offset'),
-          cancelToken: any(named: 'cancelToken'),
-        ),
-      ).thenThrow(
-        DioException(
-          type: DioExceptionType.cancel,
-          requestOptions: RequestOptions(path: ''),
-        ),
-      );
+        expect(result.isLeft(), true);
+        result.fold(
+          (failure) => expect(failure, isA<ServerFailure>()),
+          (r) => fail('Should not be right'),
+        );
+      },
+    );
+    test(
+      'should return a empty list when DioException type cancel get thrown',
+      () async {
+        when(
+          () => mockAnimeApiService.seachAnime(
+            query: any(named: 'query'),
+            offset: any(named: 'offset'),
+            cancelToken: any(named: 'cancelToken'),
+          ),
+        ).thenThrow(
+          DioException(
+            type: DioExceptionType.cancel,
+            requestOptions: RequestOptions(path: ''),
+          ),
+        );
 
-      final result = await repository.searchAnime(query: 'Naruto');
+        final result = await repository.searchAnime(query: 'Naruto');
 
-      expect(result.isRight(), true);
-      result.fold((l) => fail('Should not be left'), (animes) {
-        expect(animes, isEmpty);
-      });
-    });
+        expect(result.isRight(), true);
+        result.fold((l) => fail('Should not be left'), (animes) {
+          expect(animes, isEmpty);
+        });
+      },
+    );
   });
 }

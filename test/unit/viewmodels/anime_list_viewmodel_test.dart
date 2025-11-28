@@ -304,7 +304,6 @@ void main() {
 
         await waitShort();
 
-
         expect(listener.states[0].isActive, false);
         expect(listener.states[1].isActive, true);
         expect(listener.states[0].hasData, false);
@@ -336,7 +335,6 @@ void main() {
       notifier.onQueryChanged(tQuery);
       await waitForDebounce();
       await waitShort();
-
 
       expect(listener.states[0].isActive, false);
       expect(listener.states[1].isActive, true);
@@ -371,7 +369,6 @@ void main() {
       notifier.onQueryChanged(tQuery);
       await waitForDebounce();
       await waitShort();
-
 
       expect(listener.states[0].isActive, false);
       expect(listener.states[1].isActive, true);
@@ -409,7 +406,6 @@ void main() {
 
       notifier.clearSearch();
       await waitShort();
-
 
       expect(listener.states[0].isActive, false);
       expect(listener.states[1].isActive, true);
@@ -451,7 +447,6 @@ void main() {
       notifier.onQueryChanged(newTQuery);
       await waitShort();
 
-
       expect(listener.states[0].isActive, false);
       expect(listener.states[1].isActive, true);
       expect(listener.states.length, 2);
@@ -492,7 +487,6 @@ void main() {
       notifier.onQueryChanged(tQuery);
       await waitForDebounce();
       await waitShort();
-
 
       expect(listener.states[0].isActive, false);
       expect(listener.states[1].isActive, true);
@@ -543,7 +537,6 @@ void main() {
       await waitForDebounce();
       await waitShort();
 
-
       //init active state
       expect(listener.states[0].isActive, false);
       expect(listener.states[1].isActive, true);
@@ -593,7 +586,6 @@ void main() {
       notifier.onQueryChanged(tQuery);
       await waitForDebounce();
       await waitShort();
-
 
       //init active state
       expect(listener.states[0].isActive, false);

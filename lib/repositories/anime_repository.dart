@@ -1,4 +1,3 @@
-
 import 'package:anime_discovery_app_v2/core/errors/failure.dart';
 import 'package:anime_discovery_app_v2/models/dtos/anime_dto.dart';
 import 'package:anime_discovery_app_v2/models/entities/anime.dart';
