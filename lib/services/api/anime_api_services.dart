@@ -29,6 +29,24 @@ class AnimeApiServices {
 
     return AnimeResponseDto.fromJson(response.data);
   }
+
+  Future<AnimeResponseDto> seachAnime({
+    required String query,
+    int offset = 0,
+    CancelToken? cancelToken,
+  }) async {
+    final response = await _dio.get(
+      ApiConstants.getAnimeUrl,
+      queryParameters: {
+        'filter[text]': query,
+        'page[limit]': ApiConstants.pageSize,
+        'page[offset]': offset,
+      },
+      cancelToken: cancelToken,
+    );
+
+    return AnimeResponseDto.fromJson(response.data);
+  }
 }
 
 @riverpod
