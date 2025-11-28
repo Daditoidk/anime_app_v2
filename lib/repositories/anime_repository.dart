@@ -19,6 +19,12 @@ abstract class AnimeRepository {
     int offset = 0,
     CancelToken? cancelToken,
   });
+
+  Future<Either<Failure, List<Anime>>> searchAnime({
+    required String query,
+    int offset = 0,
+    CancelToken? cancelToken,
+  });
 }
 
 class AnimeRepositoryImpl implements AnimeRepository {
@@ -40,6 +46,32 @@ class AnimeRepositoryImpl implements AnimeRepository {
 
       return Right(animes);
     } on DioException catch (e) {
+      return Left(_mapDioError(e));
+    } catch (e) {
+      return Left(Failure.unexpected(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Anime>>> searchAnime({
+    required String query,
+    int offset = 0,
+    CancelToken? cancelToken,
+  }) async {
+    try {
+      final response = await _apiServices.seachAnime(
+        query: query,
+        offset: offset,
+        cancelToken: cancelToken,
+      );
+
+      final animes = response.data.map((anime) => anime.toEntity()).toList();
+
+      return Right(animes);
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.cancel) {
+        return Right([]);
+      }
       return Left(_mapDioError(e));
     } catch (e) {
       return Left(Failure.unexpected(message: e.toString()));
