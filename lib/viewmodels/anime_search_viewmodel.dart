@@ -76,17 +76,20 @@ class AnimeSearchViewmodel extends _$AnimeSearchViewmodel {
     if (state.query != query) return;
 
     response.fold(
-      (failure) => state = state.copyWith(errorMessage: failure.message),
+      (failure) =>
+          state = state.copyWith(
+            errorMessage: failure.message,
+            isSearching: false,
+          ),
       (result) {
-        state = state.copyWith(results: result);
+        state = state.copyWith(results: result, isSearching: false);
       },
     );
-    state = state.copyWith(isSearching: false);
   }
 
   void retry() {
     final query = state.query;
-    state = AnimeSearchState(isSearching: true, isActive: true, query: query);
+    state = AnimeSearchState(isActive: true, query: query);
     _performSearch(state.query);
   }
 }

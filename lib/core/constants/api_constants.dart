@@ -10,4 +10,7 @@ class ApiConstants {
 
 class KeyConstants {
   static const String animeSearchTextField = 'animeSearchTextField';
+  static const String searchButton = 'searchButton';
+  static const String clearButton = 'clearButton';
+  static const String backButton = 'backButton';
 }

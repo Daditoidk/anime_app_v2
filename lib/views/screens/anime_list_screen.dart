@@ -56,6 +56,7 @@ class _AnimeListScreenState extends ConsumerState<AnimeListScreen> {
         actions: [
           searchState.isActive
               ? IconButton(
+                key: const Key(KeyConstants.clearButton),
                 icon: const Icon(Icons.close),
                 onPressed: () {
                   searchViewModel.clearSearch();
@@ -63,6 +64,7 @@ class _AnimeListScreenState extends ConsumerState<AnimeListScreen> {
                 },
               )
               : IconButton(
+                key: const Key(KeyConstants.searchButton),
                 icon: const Icon(Icons.search),
                 onPressed: () {
                   searchViewModel.activateSearch();
@@ -72,7 +74,10 @@ class _AnimeListScreenState extends ConsumerState<AnimeListScreen> {
         ],
         leading:
             searchState.isActive
-                ? BackButton(onPressed: searchViewModel.deactivateSearch)
+                ? BackButton(
+                  key: const Key(KeyConstants.backButton),
+                  onPressed: searchViewModel.deactivateSearch,
+                )
                 : null,
       ),
       body:

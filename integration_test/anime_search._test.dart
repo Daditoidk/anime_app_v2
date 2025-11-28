@@ -1,5 +1,6 @@
 import 'package:anime_discovery_app_v2/core/constants/api_constants.dart';
 import 'package:anime_discovery_app_v2/main.dart' as app;
+import 'package:anime_discovery_app_v2/views/widgets/anime_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -38,17 +39,25 @@ void main() {
       await tester.pumpAndSettle();
 
       // Search something
-      await tester.tap(find.byIcon(Icons.search));
+      await tester.tap(find.byKey(const Key(KeyConstants.searchButton)));
       await tester.pumpAndSettle();
       await tester.enterText(
-        find.byKey(const Key('search-text-input')),
+        find.byKey(const Key(KeyConstants.animeSearchTextField)),
         'Boku no',
       );
       await waitForDebounce();
       await tester.pumpAndSettle();
 
       // Clear search
-      await tester.tap(find.byIcon(Icons.clear));
+      await tester.tap(find.byKey(const Key(KeyConstants.clearButton)));
+      await tester.pumpAndSettle();
+
+      // Should show empty search state
+      expect(find.byType(ListView), findsOneWidget);
+      expect(find.byType(AnimeCard), findsNothing);
+
+      // Clear search
+      await tester.tap(find.byKey(const Key(KeyConstants.backButton)));
       await tester.pumpAndSettle();
 
       // Should return to popular list
