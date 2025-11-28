@@ -61,7 +61,6 @@ void main() {
 
       await waitShort();
 
-
       expect(listener.states[0].isLoading, true);
     });
     test('should load animes succefully', () async {
@@ -83,7 +82,6 @@ void main() {
       container.read(animeListViewmodelProvider);
 
       await waitShort();
-
 
       expect(listener.states[0].isLoading, true);
       expect(listener.states[1].isLoading, false);
@@ -110,7 +108,6 @@ void main() {
       container.read(animeListViewmodelProvider);
 
       await waitShort();
-
 
       expect(listener.states[0].isLoading, true);
       expect(listener.states[1].isLoading, false);
@@ -146,7 +143,6 @@ void main() {
       // Refresh
       await viewModel.refresh();
       await waitShort();
-
 
       expect(listener.states[0].isLoading, true);
       expect(listener.states[1].isLoading, false);
@@ -188,7 +184,6 @@ void main() {
       await viewModel.refresh();
       await waitShort();
 
-
       expect(listener.states[0].isLoading, true);
       expect(listener.states[1].isLoading, false);
       expect(listener.states[1].animes.length, 2);
@@ -229,7 +224,6 @@ void main() {
       viewModel.retry();
       await waitShort();
 
-
       expect(listener.states[0].isLoading, true);
       expect(listener.states[1].isLoading, false);
       expect(listener.states[1].hasError, true);
@@ -258,7 +252,6 @@ void main() {
       container.read(animeListViewmodelProvider);
 
       await waitShort();
-
 
       expect(listener.states[0].isLoading, true);
       expect(listener.states[1].isLoading, false);

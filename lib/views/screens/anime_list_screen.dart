@@ -14,9 +14,7 @@ class AnimeListScreen extends ConsumerWidget {
     final viewModel = ref.read(animeListViewmodelProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Popular Anime'),
-      ),
+      appBar: AppBar(title: const Text('Popular Anime')),
       body: _buildBody(state, viewModel),
     );
   }
@@ -27,10 +25,7 @@ class AnimeListScreen extends ConsumerWidget {
     }
 
     if (state.hasError && state.animes.isEmpty) {
-      return ErrorView(
-        message: state.errorMessage!,
-        onRetry: viewModel.retry,
-      );
+      return ErrorView(message: state.errorMessage!, onRetry: viewModel.retry);
     }
 
     if (state.isEmpty) {

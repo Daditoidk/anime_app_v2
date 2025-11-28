@@ -14,22 +14,21 @@ void main() {
       await tester.pump();
       await tester.pumpAndSettle();
 
-
-//Should find a list of animes
+      //Should find a list of animes
       expect(find.byType(ListView), findsOneWidget);
 
-//Should find at least one anime item
+      //Should find at least one anime item
       expect(find.byType(AnimeCard), findsAtLeast(1));
 
-//The animeTile should have title and rating
+      //The animeTile should have title and rating
       expect(find.textContaining('★'), findsWidgets);
     });
   });
 
   testWidgets('should show error state and retry', (tester) async {
-      // TODO: Mock network failure
-      // expect error widget
-      // tap retry
-      // expect list
-    });
+    // TODO: Mock network failure
+    // expect error widget
+    // tap retry
+    // expect list
+  });
 }

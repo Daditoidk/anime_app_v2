@@ -3,5 +3,5 @@ class ApiConstants {
   static const Duration timeout = Duration(seconds: 30);
   static const int pageSize = 20;
 
-  static const String getAnimeUrl =  '/anime';
+  static const String getAnimeUrl = '/anime';
 }

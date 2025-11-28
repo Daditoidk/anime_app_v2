@@ -9,8 +9,9 @@ part 'anime_list_viewmodel.g.dart';
 class AnimeListViewmodel extends _$AnimeListViewmodel {
   @override
   AnimeListState build() {
+    state = const AnimeListState(isLoading: true);
     _loadAnimes();
-    return const AnimeListState(isLoading: true);
+    return state;
   }
 
   Future<void> _loadAnimes() async {

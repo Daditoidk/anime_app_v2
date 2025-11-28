@@ -27,7 +27,6 @@ class AnimeApiServices {
       cancelToken: cancelToken,
     );
 
-
     return AnimeResponseDto.fromJson(response.data);
   }
 }
